@@ -4,8 +4,8 @@ const date = require(__dirname + "/date.js");
 
 const app = express();
 
-let items = ["Test item"];
-let workItems = ["Test work item"];
+const items = ["Test item"];
+const workItems = ["Test work item"];
 
 app.set("view engine", "ejs");
 
@@ -14,7 +14,7 @@ app.use(express.static("public"));
 
 app.get("/", function(req, res) {
 
-  let day = date();
+  const day = date.getDate();
 
   res.render("list", {
     listTitle: day,
@@ -25,7 +25,7 @@ app.get("/", function(req, res) {
 
 app.post("/", function(req, res) {
 
-  let item = req.body.newItem;
+  const item = req.body.newItem;
 
   if (req.body.list === "Work") {
     workItems.push(item);
