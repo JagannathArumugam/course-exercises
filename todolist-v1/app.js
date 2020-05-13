@@ -1,11 +1,39 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
-
 const app = express();
 
+var items = ["Test item"];
+
+app.set("view engine", "ejs");
+
+app.use(bodyParser.urlencoded({extended: true}));
+
 app.get("/", function(req, res) {
-  res.send("Server is running...");
+
+  var today = new Date();
+
+  var options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+  };
+
+  var day = today.toLocaleDateString("en-US", options);
+
+  res.render("list", {
+    nameOfDay: day,
+    listItems: items
+  });
+
+});
+
+app.post("/", function(req, res) {
+  var item = req.body.newListItem;
+
+  items.push(item);
+
+  res.redirect("/");
 });
 
 
